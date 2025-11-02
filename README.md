@@ -1,9 +1,6 @@
-# Edge-Linking-using-Hough-Transformm
-
-
-## Developed By: R Anirudh
-## Reg.No.: 212223230016
-## Date : 30/10/25
+# EDGE--LINKING-HOUGH-TRANSFORM
+# Name : R Anirudh
+# Reg no :212223230016
 ## Aim:
 To write a Python program to detect the lines using Hough Transform.
 
@@ -12,77 +9,83 @@ Anaconda - Python 3.7
 
 ## Algorithm:
 ### Step1:
+Read the image
 
-Import all the necessary modules for the program.
 ### Step2:
+Convert the input image to gray to get more details
 
-Load a image using imread() from cv2 module.
 ### Step3:
+Apply any smoothing filter, here we apply Gaussian blur
 
-Convert the image to grayscale.
 ### Step4:
+Apply an edge detector
 
-Using Canny operator from cv2,detect the edges of the image.
 ### Step5:
+Apply hough transform and show the detected edge on the original image
 
-Using the HoughLinesP(),detect line co-ordinates for every points in the images.Using For loop,draw the lines on the found co-ordinates.Display the image.
 
-## Program
-## Developed By: R Anirudh
-## Reg.No.: 212223230016
+## Program:
+```Python
 
-## Input image
-```
+# Read image and convert it to grayscale image
 import cv2
 import numpy as np
-import matplotlib.pyplot as plt
-image = cv2.imread('Qn_7_.jpg')
-gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-plt.imshow(cv2.cvtColor(image, cv2.COLOR_BGR2RGB))  # Convert image to RGB for displaying
-plt.title("Input Image")
-plt.axis('off')
-```
-## Grayscale image
-```
-plt.imshow(gray_image, cmap='gray')
-plt.title("Grayscale Image")
-plt.axis('off')
-```
-## Canny Edge detector output
-```
-edges = cv2.Canny(gray_image, 50, 150)
-plt.imshow(edges, cmap='gray')
-plt.title("Canny Edge Detector")
-plt.axis('off')
-```
-## Display the result of Hough transform
-```
-lines = cv2.HoughLinesP(edges, 1, np.pi / 180, 100, minLineLength=50, maxLineGap=10)
+r=cv2.imread('catt.jpg',-1)
+gray=cv2.cvtColor(r,cv2.COLOR_BGR2GRAY)
+img = cv2.GaussianBlur(gray,(3,3),0)
+cv2.imshow('origianl',r)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+cv2.imshow('gray',gray)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+
+
+# Find the edges in the image using canny detector and display
+canny_edges = cv2.Canny(img, 50, 120)
+cv2.imshow('canny',canny_edges)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+
+
+# Detect points that form a line using HoughLinesP
+lines =cv2.HoughLinesP(canny_edges, 1, np.pi/180,threshold = 15, minLineLength =5 ,
+maxLineGap = 7)
+
+
+
+# Draw lines on the image
 for line in lines:
-    x1, y1, x2, y2 = line[0]  # Unpacking the line coordinates
-    cv2.line(image, (x1, y1), (x2, y2), (0, 255, 0), 2)  # Draw green lines with thickness of 2
-# Display the result of Hough Transform (Image with lines)
-plt.imshow(cv2.cvtColor(image, cv2.COLOR_BGR2RGB))  # Image with lines drawn
-plt.title("Result of Hough Transform")
-plt.axis('off')
+ x1,y1,x2,y2 = line[0]
+ cv2.line(r, (x1,y1),(x2,y2),(255,0,0),3)
+
+
+
+# Display the result
+cv2.imshow('hough_detected',r)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+
+
+
 ```
-
 ## Output
-### Input image  
 
-<img width="619" height="423" alt="image" src="https://github.com/user-attachments/assets/09033df3-096d-4944-98ef-607a2e78109f" />
+### Input image and grayscale image
+![WhatsApp Image 2024-04-10 at 11 09 31_8e788b47](https://github.com/Ragu-123/Edge-Linking-using-Hough-Transformm/assets/113915622/32386311-5adf-4c16-914d-c233b2e33777)
+![WhatsApp Image 2024-04-10 at 11 09 58_4f44c31b](https://github.com/Ragu-123/Edge-Linking-using-Hough-Transformm/assets/113915622/f7d7fd9d-66a9-49b1-86c2-cba7c02f2e5c)
 
-### Grayscale image
-
-<img width="596" height="426" alt="image" src="https://github.com/user-attachments/assets/98f2b0e2-efc5-43b1-8d96-a903c307209b" />
 
 ### Canny Edge detector output
+![WhatsApp Image 2024-04-10 at 11 10 23_b31d75bd](https://github.com/Ragu-123/Edge-Linking-using-Hough-Transformm/assets/113915622/67580a82-e08a-4186-9e7f-f1aac20d2717)
 
-<img width="606" height="442" alt="image" src="https://github.com/user-attachments/assets/3c5ab79b-5acc-4a5f-ab76-e208c44c3c0b" />
 
-### Display the result of Hough transform
 
-<img width="624" height="431" alt="image" src="https://github.com/user-attachments/assets/4c29ad76-f3d0-4843-93e9-c56fc4a746bc" />
+### Display the result of the Hough transform
+![WhatsApp Image 2024-04-10 at 11 10 52_941bf782](https://github.com/Ragu-123/Edge-Linking-using-Hough-Transformm/assets/113915622/5a5b96d4-3a64-452b-8e21-f7975d416303)
+
+
+
 
 ## Result:
- Thus the python program to detect the lines using Hough Transform was successfully completed.
+Thus the program is written with Python and OpenCV to detect lines using Hough transform. 
